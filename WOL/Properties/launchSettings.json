@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WOL": {
+      "commandName": "Project",
+      "commandLineArgs": "AA:BB:CC:DD:EE:FF this is crap FF:123:22:11 00:11:22:33:44:55"
+    }
+  }
+}
