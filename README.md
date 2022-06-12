@@ -1,5 +1,5 @@
 # WakeOnLan (WOL)
 
 Usage:
-  wal [mac address] .... [n mac accress]
+  wol [mac address] .... [n mac accress]
   
