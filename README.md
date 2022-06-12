@@ -15,7 +15,17 @@ Copyright (C) 2022 WOL
 
   --version            Display version information.
   ```
-  
+
+# Install
+For windows download and install the .NET 6 runtime if it's not installed already [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
+
+For Debian based distros like Ubuntu run:
+```
+$> sudo apt-get install -y dotnet-runtime-6.0
+```
+
+Then [download the latest ZIP file from the releases](https://github.com/RiaanAspeling/WakeOnLan/releases) and extract in a folder to use. Add this folder to your path if needed. 
+
 # Examples
   
 $> WOL -p 12345 -m AA:BB:CC:DD:EE:FF 11-22-33-44-55-66 778899AABBCC INVALIDMAC aa:11-22ff8a-00
