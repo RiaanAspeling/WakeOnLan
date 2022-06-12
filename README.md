@@ -16,7 +16,7 @@ Copyright (C) 2022 WOL
   --version            Display version information.
   ```
   
-#Examples
+# Examples
   
 $> WOL -p 12345 -m AA:BB:CC:DD:EE:FF 11-22-33-44-55-66 778899AABBCC INVALIDMAC aa:11-22ff8a-00
 ```
