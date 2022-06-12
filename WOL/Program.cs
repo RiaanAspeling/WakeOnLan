@@ -1,18 +1,17 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿using CommandLine;
+using WOL;
 
-if (Environment.GetCommandLineArgs().Count() < 2)
-{
-    Console.WriteLine(@"Usage:
-    wol [mac address] .... [n mac accress]");
+var cmdLine = Parser.Default.ParseArguments<CommandLineOptions>(args);
+
+if (cmdLine.Errors.Any())
     return;
-}
 
-var macs = Environment.GetCommandLineArgs();
-var client = new WOL.WOL();
+var macs = cmdLine.Value.Macs;
+var port = cmdLine.Value.Port;
+var client = new WOL.WOL(port);
 
-for(var i = 1; i < macs.Length; i++)
+foreach(var mac in macs)
 {
-    if (client.WakeMac(macs[i]))
-        Console.WriteLine($"Wake up {macs[i]} successfull.");
+    if (client.WakeMac(mac))
+        Console.WriteLine($"Wake up {mac} successfull.");
 }
