@@ -5,46 +5,40 @@ namespace WOL
 {
     internal class WOL : UdpClient
     {
+        private const string _broadcastAddress = "255.255.255.255";
+        private const int _defaultPort = 12345;
+
         internal WOL(int port) : base()
         {
             if (port == 0)
-                port = 0x2fff;
+                port = _defaultPort;
             SetupConnection(port);
         }
 
-        internal bool WakeMac(string mac)
+        internal void WakeMac(string mac)
         {
-            try
-            {
-                var macb = StringToBytes(mac);
-                var magic = BuildMagicPacket(macb);
-                this.Client.Send(magic);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return false;
+            var macb = StringToBytes(mac);
+            var magic = BuildMagicPacket(macb);
+            this.Client.Send(magic);
         }
 
-        private byte[] StringToBytes(string macText)
+        private static byte[] StringToBytes(string macText)
         {
-            var mac = macText.Replace("-", "").Replace(":", "").Replace(" ", "");
+            var mac = macText.Trim().Replace("-", "").Replace(":", "").Replace(" ", "");
             
             if (mac.Length != 12)
-                throw new ArgumentException($"Mac address must contain 6 x HEX pairs, skipping. This mac is incorrect: {macText}");
+                throw new ArgumentException($"The MAC address must contain 6 hex value pairs. Ignored MAC : {macText}");
             
             if (!long.TryParse(mac, System.Globalization.NumberStyles.HexNumber, null, out var macVal))
-                throw new ArgumentException($"Mac address must contain only valid HEX pairs, skipping. This mac is incorrect: {macText}");
+                throw new ArgumentException($"The MAC address must contain only valid hex value pairs. Ignored MAC : {macText}");
             
             return Enumerable.Range(0, mac.Length)
-                     .Where(x => x % 2 == 0)
-                     .Select(x => Convert.ToByte(mac.Substring(x, 2), 16))
-                     .ToArray();
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(mac.Substring(x, 2), 16))
+                             .ToArray();
         }
 
-        private byte[] BuildMagicPacket(byte[] mac)
+        private static byte[] BuildMagicPacket(byte[] mac)
         {
             var bytes = new List<byte>() { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
@@ -57,8 +51,7 @@ namespace WOL
         private void SetupConnection(int port)
         {
             this.Client.EnableBroadcast = true;
-            this.Client.Connect(new IPAddress(0xffffffff),  // 255.255.255.255  i.e broadcast
-                                port);
+            this.Client.Connect(IPAddress.Parse(_broadcastAddress), port);
         }
     }
 }

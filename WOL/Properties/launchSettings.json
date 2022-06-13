@@ -2,7 +2,7 @@
   "profiles": {
     "WOL": {
       "commandName": "Project",
-      "commandLineArgs": "-m AA:BB:CC:DD:EE:FF FF:123:22:11 00:11:22:33:44:55"
+      "commandLineArgs": "-m AA:BB:CC:DD:EE:FF FF:123:22:11 00:11:22:33:44:55 GG-HH-AA-XX-YY-00"
     }
   }
 }

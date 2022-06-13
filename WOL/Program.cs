@@ -12,6 +12,15 @@ var client = new WOL.WOL(port);
 
 foreach(var mac in macs)
 {
-    if (client.WakeMac(mac))
-        Console.WriteLine($"Wake up {mac} successfull.");
+    try
+    {
+        client.WakeMac(mac);
+        Console.WriteLine($"Successfully sent wake-on-lan (WOL) broadcast message for {mac}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
+
+Console.ReadLine(); 
