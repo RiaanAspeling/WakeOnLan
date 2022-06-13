@@ -22,5 +22,3 @@ foreach(var mac in macs)
         Console.WriteLine(ex.Message);
     }
 }
-
-Console.ReadLine(); 
